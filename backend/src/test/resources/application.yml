@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@bdorapre01.mpt.es:1521:PREMPT1
+    username: BDARCHIVO
+    password: BDARCHIVO
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    
+ldap:
+  url: ldap://ldappre.map.es:389
+  user: cn=admin,dc=map,dc=es
+  password: cambiame
+  base: dc=map,dc=es
+        
+oauth:
+  clientid: 05355B83243D1A89ECEE677A97690D73
+  secret: BAF1129D03CE333CF4D9EB40EBD1754E

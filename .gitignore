@@ -1,0 +1,54 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+frontend/src/main/frontend/dist
+frontend/src/main/frontend/tmp
+frontend/src/main/frontend/out-tsc
+
+# dependencies
+frontend/src/main/frontend/node_modules
+frontend/src/main/frontend/node
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.apt_generated
+.factorypath
+.settings
+.springBeans
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.idea
+*.iws
+*.iml
+*.ipr
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+**/target/*
+
+# e2e
+frontend/src/main/frontend/e2e/*.js
+frontend/src/main/frontend/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
+
+**/wrapper/maven-wrapper.jar

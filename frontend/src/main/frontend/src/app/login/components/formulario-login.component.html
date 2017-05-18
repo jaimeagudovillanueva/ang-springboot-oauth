@@ -1,0 +1,43 @@
+<div class="login-box">
+    <div class="login-box-body">
+        <div class="nav-tabs-custom">
+            <div class="tab-content">
+                <div id="tab_1-1" class="tab-pane active">
+                    <div *ngIf="!sessionService.authenticated">
+                        <p class="login-box-msg">Introduzca nombre de usuario y contrase&ntilde;a</p>
+                        <form role="form" (submit)="login($event, username.value, password.value)">
+                            <div class="form-group has-feedback">
+                                <input type="text" #username class="form-control" id="username" placeholder="Username">
+                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <input type="password" #password class="form-control" id="password" placeholder="Password">
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-md-offset-8 col-xs-12">
+                                    <button type="submit" [disabled]="boton_acceder_disabled" class="btn btn-primary btn-block btn-flat pull-right">
+                                        <span *ngIf="boton_acceder_disabled" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                                        Acceder</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div *ngIf="sessionService.authenticated">
+                        <form role="form" (submit)="logout()">
+                            <div class="form-group has-feedback">
+                                <p>Ya existe una sesión iniciada, puede continuar trabajando con ella o cerrar la sesión para cambiar de usuario.</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-md-offset-8 col-xs-12">
+                                    <button type="submit" class="btn btn-primary btn-block btn-flat pull-right">Cerrar sesión</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+</div>

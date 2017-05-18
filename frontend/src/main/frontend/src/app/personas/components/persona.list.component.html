@@ -1,0 +1,60 @@
+<h3>Personas</h3>
+
+<div class="form-inline">
+    <div class="form-group">
+        <input class="form-control" #nuevoFiltro [value]="textoFiltro" (keydown.enter)="buscarPersonas(1, nuevoFiltro.value)">
+    </div>
+    <div class="form-group">
+        <button (click)="buscarPersonas(1, nuevoFiltro.value)" class="btn btn-primary">Buscar</button>
+    </div>
+</div>
+
+<div *ngIf="resultados">
+    <div *ngIf="!resultados.length">
+        No se ha encontrado ninguna persona
+    </div>
+
+    <div *ngIf="resultados.length">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Primer apellido</th>
+                    <th>Segundo apellido</th>
+                    <th>DNI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let t of resultados" (click)="detallePersona(t.persona.id)">
+                    <td>{{t.persona.nombre}}</td>
+                    <td>{{t.persona.primerApellido}}</td>
+                    <td>{{t.persona.segundoApellido}}</td>
+                    <td>{{t.persona.nif}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div align="center">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item"><a href="javascript:void(0)" class="page-link" 
+                        aria-label="Primera" (click)="irPagina(primera)"> <span aria-hidden="true">Primera</span>
+                    </a></li>
+                    <li class="page-item"><a href="javascript:void(0)" class="page-link" 
+                        aria-label="Anterior" (click)="irPagina(anterior)"> <span aria-hidden="true">«</span>
+                    </a></li>
+                    <li *ngFor="let item of range(datosPagina.number + 1, datosPagina.totalPages)"
+                        class="page-item" [ngClass]="{'active' : item == datosPagina.number + 1}"
+                        (click)="buscarPersonas(item, textoFiltro)">
+                        <a href="javascript:void(0)" class="page-link">{{item}}</a></li>
+                    <li class="page-item"><a href="javascript:void(0)" class="page-link"
+                        aria-label="Next" (click)="irPagina(siguiente)"> <span aria-hidden="true">»</span>
+                    </a></li>
+                    <li class="page-item"><a href="javascript:void(0)" class="page-link"
+                        aria-label="Última" (click)="irPagina(ultima)"> <span aria-hidden="true">Última</span>
+                    </a></li>
+                </ul>
+            </nav>
+        </div>
+     </div>
+</div>
