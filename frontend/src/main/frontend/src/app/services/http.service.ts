@@ -22,15 +22,11 @@ export class HttpService extends Http {
 
   request(request: string | Request, options?: RequestOptionsArgs): Observable<Response> {
 
-
-    if (typeof request === 'string') {
-      if (!options) {
-        options = { headers: new Headers() };
-      }
-      this.setHeaders(options);
-    } else {
-      this.setHeaders(request);
+    if (!options) {
+       options = { headers: new Headers() };
     }
+    this.setHeaders(options);
+
     let observableRequest = super
       .request(request, options)
       .catch(this.catchErrors());

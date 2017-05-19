@@ -41,7 +41,7 @@ frontend/src/main/frontend/node
 npm-debug.log
 testem.log
 /typings
-**/target/*
+**/target
 
 # e2e
 frontend/src/main/frontend/e2e/*.js

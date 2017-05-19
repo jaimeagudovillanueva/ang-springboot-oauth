@@ -28,8 +28,6 @@ export class LoginService {
     let params: URLSearchParams = new URLSearchParams();
     params.set('username', username);
     params.set('password', password);
-    params.set('client_id', this.clientId);
-    params.set('client_secret', this.clientSecret);
     params.set('grant_type', 'password');
 
     let headers = new Headers({

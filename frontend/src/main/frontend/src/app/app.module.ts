@@ -1,7 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
-import { Http, HttpModule, RequestOptions, XHRBackend } from '@angular/http';
+import { Http, HttpModule } from '@angular/http';
 import { LoginModule } from './login/login.module';
 
 import { NotificationsService, SimpleNotificationsModule } from 'angular2-notifications';
@@ -39,6 +39,7 @@ import { HttpService } from './services/http.service';
   providers: [
     NotificationsService,
     PERSONAS_PROVIDERS,
+
     SecurityService,
     {
       provide: SessionService,
@@ -51,4 +52,4 @@ import { HttpService } from './services/http.service';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>archivo-back</artifactId>
-
+	<artifactId>archiveAng</artifactId>
 	<name>backend</name>
 	<description>Backend de ArchivoDGFP</description>
+	<packaging>war</packaging>
 
 	 <parent>
         <groupId>es.archivo</groupId>
@@ -72,7 +72,7 @@
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.3</version>
         </dependency>
-        
+       
         <dependency>
             <groupId>es.archivo</groupId>
             <artifactId>archivo-front</artifactId>
@@ -87,7 +87,12 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+			    <artifactId>maven-war-plugin</artifactId>
+			    <configuration>
+			        <warName>archivo</warName>
+			    </configuration>
+			</plugin>
 		</plugins>
 	</build>
-	<packaging>war</packaging>
 </project>
