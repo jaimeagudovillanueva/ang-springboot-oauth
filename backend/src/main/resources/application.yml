@@ -12,6 +12,8 @@ ldap:
   user: cn=admin,dc=map,dc=es
   password: cambiame
   base: dc=map,dc=es
+  authfilter: uid={0}
+  searchbase:  
         
 oauth:
   clientid: 05355B83243D1A89ECEE677A97690D73

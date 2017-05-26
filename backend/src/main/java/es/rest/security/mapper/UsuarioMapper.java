@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class CustomUserDetailsMapper extends LdapUserDetailsMapper implements UserDetailsContextMapper {
+public class UsuarioMapper extends LdapUserDetailsMapper implements UserDetailsContextMapper {
 
 	@Autowired
 	@Qualifier("usuarioService")

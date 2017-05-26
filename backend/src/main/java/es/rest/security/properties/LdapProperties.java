@@ -11,6 +11,8 @@ public class LdapProperties {
 	private String user;
 	private String password;
 	private String base;
+	private String authfilter;
+	private String searchbase;
 
 	public String getUrl() {
 		return url;
@@ -42,5 +44,21 @@ public class LdapProperties {
 
 	public void setBase(final String base) {
 		this.base = base;
+	}
+
+	public String getAuthfilter() {
+		return authfilter;
+	}
+
+	public void setAuthfilter(final String authfilter) {
+		this.authfilter = authfilter;
+	}
+
+	public String getSearchbase() {
+		return searchbase;
+	}
+
+	public void setSearchbase(final String searchbase) {
+		this.searchbase = searchbase;
 	}
 }
