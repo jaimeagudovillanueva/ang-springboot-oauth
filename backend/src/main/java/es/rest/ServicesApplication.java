@@ -1,24 +1,15 @@
 package es.rest;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.ldap.LdapAuthenticationProviderConfigurer;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.ldap.DefaultSpringSecurityContextSource;
-import org.springframework.security.ldap.userdetails.LdapUserDetailsMapper;
-import org.springframework.security.ldap.userdetails.UserDetailsContextMapper;
 
+import es.rest.security.mapper.CustomUserDetailsMapper;
 import es.rest.security.properties.LdapProperties;
 
 /**
@@ -31,11 +22,10 @@ import es.rest.security.properties.LdapProperties;
 public class ServicesApplication extends SpringBootServletInitializer {
 
 	@Autowired
-	@Qualifier("usuarioService")
-	private UserDetailsService userService;
+	private LdapProperties ldapProperties;
 
 	@Autowired
-	private LdapProperties ldapProperties;
+	private CustomUserDetailsMapper customUserDetailMapper;
 
 	@Override
 	protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
@@ -62,28 +52,6 @@ public class ServicesApplication extends SpringBootServletInitializer {
 
 		ldapAuthenticationProviderConfigurer.userSearchFilter("uid={0}").userSearchBase("")
 				.contextSource(contextSource);
-		ldapAuthenticationProviderConfigurer.userDetailsContextMapper(customDetailMapper());
-	}
-
-	@Bean
-	public CustomUserDetailsMapper customDetailMapper() {
-		return new CustomUserDetailsMapper();
-	}
-
-	/**
-	 * Necesitamos definir un mapeo específico del detalle del usuario ya que la
-	 * autenticación es por LDAP pero los roles los tenemos en base de datos
-	 *
-	 * @author jaime.agudo
-	 *
-	 */
-	public class CustomUserDetailsMapper extends LdapUserDetailsMapper implements UserDetailsContextMapper {
-
-		@Override
-		public UserDetails mapUserFromContext(final DirContextOperations ctx, final String username,
-				final Collection<? extends GrantedAuthority> authorities) {
-
-			return userService.loadUserByUsername(username);
-		}
+		ldapAuthenticationProviderConfigurer.userDetailsContextMapper(customUserDetailMapper);
 	}
 }

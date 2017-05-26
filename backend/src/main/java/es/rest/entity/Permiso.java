@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import es.rest.security.ResourceServerConfig;
+import es.rest.security.voter.ArchivoVoter;
 
 /**
  * Entidad para la tabla PERMISOS
@@ -66,6 +66,6 @@ public class Permiso implements GrantedAuthority {
 
 	@Override
 	public String getAuthority() {
-		return ResourceServerConfig.ROLE_PREFIX + perfil.getDescripcion().toUpperCase() + "_" + ambito.getCodigo();
+		return ArchivoVoter.ROLE_PREFIX + perfil.getDescripcion().toUpperCase();
 	}
 }

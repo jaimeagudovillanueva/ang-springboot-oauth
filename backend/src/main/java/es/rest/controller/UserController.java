@@ -15,7 +15,7 @@ import es.rest.entity.Usuario;
 @RestController
 public class UserController {
 
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	@RequestMapping(value = "/seleccionarPermiso", method = RequestMethod.GET)
 	public Principal obtenerUsuario(@RequestParam(value = "ambito") final String codigoAmbito,
 			@RequestParam(value = "perfil") final Long idPerfil, final Principal principal) {
 
