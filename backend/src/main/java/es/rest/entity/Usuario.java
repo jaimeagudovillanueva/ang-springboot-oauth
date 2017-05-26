@@ -1,6 +1,6 @@
 package es.rest.entity;
 
-import java.io.Serializable;
+import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -9,6 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Entidad para la tabla USUARIOS
@@ -18,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TBLAFP_USUARIOS")
-public class Usuario implements Serializable {
+public class Usuario implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
@@ -47,6 +51,9 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private Set<Permiso> permisos;
 
+	@Transient
+	private Permiso permisoSeleccionado;
+
 	public Long getId() {
 		return id;
 	}
@@ -55,6 +62,7 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 
+	@Override
 	public String getUsername() {
 		return username;
 	}
@@ -109,5 +117,43 @@ public class Usuario implements Serializable {
 
 	public void setPermisos(final Set<Permiso> permisos) {
 		this.permisos = permisos;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return permisos;
+	}
+
+	@Override
+	public String getPassword() {
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return activo;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return activo;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return activo;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return activo;
+	}
+
+	public Permiso getPermisoSeleccionado() {
+		return permisoSeleccionado;
+	}
+
+	public void setPermisoSeleccionado(final Permiso permisoSeleccionado) {
+		this.permisoSeleccionado = permisoSeleccionado;
 	}
 }

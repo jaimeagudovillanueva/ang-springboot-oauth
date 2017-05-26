@@ -1,7 +1,5 @@
 package es.rest.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.security.core.GrantedAuthority;
+
+import es.rest.security.ResourceServerConfig;
 
 /**
  * Entidad para la tabla PERMISOS
@@ -18,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TBLAFP_PERMISOS")
-public class Permiso implements Serializable {
+public class Permiso implements GrantedAuthority {
 
 	private static final long serialVersionUID = 1L;
 
@@ -60,5 +62,10 @@ public class Permiso implements Serializable {
 
 	public void setAmbito(final Ambito ambito) {
 		this.ambito = ambito;
+	}
+
+	@Override
+	public String getAuthority() {
+		return ResourceServerConfig.ROLE_PREFIX + perfil.getDescripcion().toUpperCase() + "_" + ambito.getCodigo();
 	}
 }

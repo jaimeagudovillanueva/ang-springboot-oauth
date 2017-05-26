@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 
+import es.rest.entity.Usuario;
 import es.rest.repository.UsuarioRepository;
 import es.rest.security.properties.OauthProperties;
 
@@ -69,7 +70,8 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 				final OAuth2Authentication authentication) {
 
 			final Map<String, Object> additionalInfo = new HashMap<>();
-			additionalInfo.put("user", usuarioRepository.findOneByUsername(authentication.getName()));
+			final Usuario datosUsuario = usuarioRepository.findOneByUsername(authentication.getName());
+			additionalInfo.put("user", datosUsuario);
 
 			((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
 			return accessToken;
