@@ -73,6 +73,12 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 			final Usuario datosUsuario = usuarioRepository.findOneByUsername(authentication.getName());
 			additionalInfo.put("user", datosUsuario);
 
+			// Si el usuario solo tiene un permiso se le asigna automáticamente
+			if (datosUsuario.getPermisos() != null && datosUsuario.getPermisos().size() == 1) {
+				((Usuario) authentication.getPrincipal())
+						.setPermisoSeleccionado(datosUsuario.getPermisos().iterator().next());
+			}
+
 			((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
 			return accessToken;
 		}

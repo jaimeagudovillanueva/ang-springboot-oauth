@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 import {FormularioLoginComponent} from './components/formulario-login.component';
+import {SeleccionPerfilComponent} from './components/seleccion-perfil.component';
 
 import {LoginService} from './login.service';
 
@@ -13,7 +14,8 @@ import {LoginService} from './login.service';
     ReactiveFormsModule
   ],
   declarations: [
-    FormularioLoginComponent
+    FormularioLoginComponent,
+    SeleccionPerfilComponent
   ],
   providers: [
     LoginService

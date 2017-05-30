@@ -1,4 +1,4 @@
-<div *ngIf="sessionService.authenticated">
+<div *ngIf="sessionService.authenticated && sessionService.perfilSeleccionado != null">
     <nav class="navbar navbar-default" style="margin-bottom: 0px">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -13,5 +13,6 @@
 <div class="jumbotron">
     <div class="container">
         <router-outlet></router-outlet>
+        <simple-notifications [options]="notif_options"></simple-notifications>
     </div>
 </div>

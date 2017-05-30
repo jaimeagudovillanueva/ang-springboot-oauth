@@ -12,6 +12,7 @@ export class LoginService {
   private OauthLoginEndPointUrl = null;
   private clientId = null;
   private clientSecret = null;
+  private baseUrl = null;
 
   constructor(public http: Http,
               private router: Router,
@@ -21,6 +22,7 @@ export class LoginService {
     this.OauthLoginEndPointUrl = UtilsService.getConfigParam('oauth_login_end_point_url');
     this.clientId = UtilsService.getConfigParam('oauth_client_id');
     this.clientSecret = UtilsService.getConfigParam('oauth_client_secret');
+    this.baseUrl = UtilsService.getConfigParam("rest_url_base");
   }
 
   login(username, password): Observable<any> {
@@ -41,6 +43,16 @@ export class LoginService {
     return this.http.post(this.OauthLoginEndPointUrl, params, options
     ).map(this.handleData)
       .catch(this.handleError);
+  }
+
+  perfil(ambito, perfil): Observable<any> {
+
+    let queryURL: string = `${this.baseUrl}/seleccionarPermiso`;
+    queryURL = `${queryURL}?ambito=${ambito}&perfil=${perfil}`;
+    
+
+    return this.http.request(queryURL).map(this.handleData)
+	  .catch(this.handleError);
   }
 
   private handleData(res: Response) {

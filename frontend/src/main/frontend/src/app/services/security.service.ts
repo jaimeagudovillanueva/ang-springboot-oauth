@@ -76,15 +76,14 @@ public isGranted(roles)
 
     let acceso_permitido=false;       
 
+/*
     this.sessionService.getAccessControl().forEach(element=>{
 
          let pattern: string=  element[0].path;
          pattern=pattern.replace(/\/rest/,'');
          let matches=url.match(pattern);
          let roles_usuario=this.sessionService.getRoles();       
-         /**
-          * Coincidencia en URL
-          */
+
          if(matches)
          {
             let metodos_sf: Array<any>=element[0].methods;
@@ -92,9 +91,6 @@ public isGranted(roles)
            
              if(UtilsService.inArray(roles_sf,this.getRolesUsuario(roles_usuario).roles)) 
              {
-                /**
-                 * Coincidencia con Método GET PUT POST...
-                 */
                 if(UtilsService.inArray(metodos_url_ng,metodos_sf))
                 {
                     acceso_permitido=true;
@@ -102,7 +98,7 @@ public isGranted(roles)
              }
          }         
     });
-    
+    */
    return acceso_permitido;
   }
 }

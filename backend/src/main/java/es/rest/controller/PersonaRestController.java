@@ -76,7 +76,7 @@ public class PersonaRestController extends ResourceSupport {
 	public PersonaResource obtenerPersona(@PathVariable final Long idPersona) throws NotFoundException {
 		final Persona persona = personaRepository.findOne(idPersona);
 		if (persona == null) {
-			throw new NotFoundException();
+			throw new NotFoundException("No se ha encontrado ninguna persona con id " + idPersona);
 		}
 		return new PersonaResource(persona);
 	}
@@ -106,7 +106,7 @@ public class PersonaRestController extends ResourceSupport {
 		if (persona != null) {
 			persona.setNif("#########");
 		} else {
-			throw new NotFoundException();
+			throw new NotFoundException("No se ha encontrado ninguna persona con id " + idPersona);
 		}
 		return new PersonaResource(persona);
 	}

@@ -32,9 +32,9 @@ import { HttpService } from './services/http.service';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    SimpleNotificationsModule,
     routing,
-    LoginModule
+    LoginModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [
     NotificationsService,

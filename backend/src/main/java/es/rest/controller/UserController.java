@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.rest.entity.Permiso;
 import es.rest.entity.Usuario;
+import es.rest.exception.NotFoundException;
 
 @RestController
 public class UserController {
 
 	@RequestMapping(value = "/seleccionarPermiso", method = RequestMethod.GET)
-	public Principal obtenerUsuario(@RequestParam(value = "ambito") final String codigoAmbito,
-			@RequestParam(value = "perfil") final Long idPerfil, final Principal principal) {
+	public Permiso obtenerUsuario(@RequestParam(value = "ambito") final String codigoAmbito,
+			@RequestParam(value = "perfil") final Long idPerfil, final Principal principal) throws NotFoundException {
 
-		final boolean permisoValido = actualizarPermisoSeleccionado((OAuth2Authentication) principal, codigoAmbito,
+		final Permiso permiso = actualizarPermisoSeleccionado((OAuth2Authentication) principal, codigoAmbito,
 				idPerfil);
 
-		// TODO Controlar excepciones
-		if (!permisoValido) {
-			;
+		if (permiso == null) {
+			throw new NotFoundException("El usuario no tiene el permiso seleccionado.");
 		}
-		return principal;
+		return permiso;
 	}
 
 	/**
@@ -38,21 +38,16 @@ public class UserController {
 	 * @param idPerfil
 	 * @return
 	 */
-	private boolean actualizarPermisoSeleccionado(final OAuth2Authentication authentication, final String codigoAmbito,
+	private Permiso actualizarPermisoSeleccionado(final OAuth2Authentication authentication, final String codigoAmbito,
 			final Long idPerfil) {
 
-		boolean permisoEncontrado = false;
 		final Set<Permiso> permisos = ((Usuario) authentication.getPrincipal()).getPermisos();
-		Permiso permisoSeleccionado = null;
-		for (final Permiso permiso : permisos) {
-			if (codigoAmbito.equals(permiso.getAmbito().getCodigo()) && idPerfil == permiso.getPerfil().getId()) {
-				permisoSeleccionado = permiso;
-				permisoEncontrado = true;
-				break;
-			}
-		}
+		final Permiso permisoSeleccionado = permisos.stream()
+				.filter(permiso -> codigoAmbito.equals(permiso.getAmbito().getCodigo())
+						&& idPerfil == permiso.getPerfil().getId())
+				.findFirst().orElse(null);
 
 		((Usuario) authentication.getPrincipal()).setPermisoSeleccionado(permisoSeleccionado);
-		return permisoEncontrado;
+		return permisoSeleccionado;
 	}
 }

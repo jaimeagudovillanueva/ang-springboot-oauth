@@ -9,9 +9,12 @@ import {SecurityService} from '../services/security.service';
 })
 export class PlantillaComponent {
 
-  constructor(
-              private sessionService: SessionService,
+  constructor(private sessionService: SessionService,
               private securityService: SecurityService) {
+  }
+
+  public notif_options = {
+    timeOut: 3000
   }
 }
  

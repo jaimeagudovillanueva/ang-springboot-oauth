@@ -1,0 +1,24 @@
+<div class="container">
+    <h3>Seleccione el perfil con el que desea acceder a la aplicación</h3>
+    <form [formGroup]="perfilForm" (ngSubmit)="seleccionarPerfil()">
+      <div class="form-group">
+        <label>Ámbito</label>
+        <select formControlName="ambito" (change)="cambioAmbito()" class="form-control">
+          <option>Seleccione un ámbito...</option>
+          <option *ngFor="let amb of ambitos" [value]="amb.codigo">
+              {{amb.descripcion}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Perfil</label>
+        <select formControlName="perfil" class="form-control">
+          <option>Seleccione un perfil...</option>
+          <option *ngFor="let perfil of perfilesAfterChangeEvent" [value]="perfil.id">  
+              {{perfil.descripcion}}
+          </option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Seleccionar</button>
+    </form>
+  </div>

@@ -40,9 +40,12 @@ export class FormularioLoginComponent implements OnInit {
            */
           this.sessionService.setSessionFromRequest(username, response);
           this._notificacionService.success('Login',"Acceso permitido");
-          this.router.navigateByUrl('home',{skipLocationChange:true});
+
+          let redireccion = response.user.permisos.length == 1 ? 'home' : 'perfil';
+          this.router.navigateByUrl(redireccion, {skipLocationChange:true});
         },
         err => {
+          console.log(err);
           this._notificacionService.error('Login',err);
           this.boton_acceder_disabled=false;
         }

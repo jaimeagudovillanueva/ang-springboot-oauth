@@ -15,6 +15,8 @@ export class SessionService {
 
   public authenticated: boolean;
 
+  private perfilSeleccionado: Object = null;
+
   private access_token: string;
 
   private refresh_token: string;
@@ -25,16 +27,16 @@ export class SessionService {
 
   private expires_in: number;
 
-  private access_control: Array <any>;
-
   private login_time: number;
 
   private username: string;
 
-  private access_control_array: Array <any>;
-
   private session_time_out: number=null;
 
+  public getPerfilSeleccionado(): Object
+  {
+    return this.perfilSeleccionado;
+  } 
 
   public getUsername(): string
   {
@@ -49,11 +51,6 @@ export class SessionService {
   public getRoles(): Array<any>
   {
     return this.roles;
-  }
-
-  public getAccessControl(): Array<any>
-  {
-     return this.access_control;
   }
 
   public getTimeOutMin(): number
@@ -127,10 +124,9 @@ export class SessionService {
     {
       this.access_token = localStorage.getItem('access_token');
       this.refresh_token =localStorage.getItem('refresh_token');
-      // this.roles = JSON.parse(localStorage.getItem('roles'));
+      this.roles = JSON.parse(localStorage.getItem('roles'));
       this.scope = localStorage.getItem('scope');
       this.expires_in = +localStorage.getItem('expires_in');
-      //this.access_control=JSON.parse(localStorage.getItem('access_control'));
       this.login_time = +localStorage.getItem('login_time');    
       let ahora=Math.round(new Date().getTime()/1000);
       this.username= localStorage.getItem('username');     
@@ -143,31 +139,35 @@ export class SessionService {
     localStorage.setItem('username', username);
     localStorage.setItem('access_token', response.access_token);
     localStorage.setItem('refresh_token', response.refresh_token);
-      
+    localStorage.setItem('roles', JSON.stringify(response.user.permisos));
     localStorage.setItem('scope', response.scope);
     localStorage.setItem('expires_in', response.expires_in);
-    localStorage.setItem('access_control', JSON.stringify(response.access_control));
     localStorage.setItem('login_time', Math.round((new Date().getTime()/1000)).toString());
 
     this.access_token = response.access_token;
     this.refresh_token = response.refresh_token;
     this.scope = response.scope;
+    this.roles = response.user.permisos;
     this.expires_in = response.expires_in;   
     this.username = response.username;
 
-    this.access_control = response.access_control;
     this.login_time = new Date().getTime()/1000;
-    let ahora=new Date().getTime()/1000;
+    let ahora = new Date().getTime()/1000;
     this.authenticated = true;
 
     this.session_time_out=this.expires_in-(ahora-this.login_time); 
+  }
+
+  public setPermisoSeleccionado(response: any) {
+    console.log(JSON.stringify(response));
+    localStorage.setItem('permiso', response);
+    this.perfilSeleccionado = response;
   }
 
   public clear() {
 
     localStorage.clear();
     
-    this.access_control = null;
     this.refresh_token = null;
     this.roles = null;
     this.scope = null;
