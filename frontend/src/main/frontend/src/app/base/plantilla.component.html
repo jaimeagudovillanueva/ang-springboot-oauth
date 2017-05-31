@@ -5,6 +5,13 @@
             <ul class="nav navbar-nav">
                 <li><a [routerLink]="['home']">Inicio</a></li>
                 <li><a [routerLink]="['personas']">Personas</a></li>
+            </ul>        
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="javascript:void(0)" (click)="logout()">Cerrar sesión
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                    </a>
+                </li>
             </ul>
             </div>
         </div>

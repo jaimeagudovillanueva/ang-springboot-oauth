@@ -132,6 +132,7 @@ export class SessionService {
       this.username= localStorage.getItem('username');     
       this.session_time_out=this.expires_in-(ahora-this.login_time); 
       this.authenticated = true;
+      this.perfilSeleccionado = localStorage.getItem('permiso');
     }
   }
 
