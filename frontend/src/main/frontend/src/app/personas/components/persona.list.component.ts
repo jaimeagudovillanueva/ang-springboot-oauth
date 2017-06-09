@@ -42,7 +42,6 @@ export class PersonaListComponent implements OnInit {
 
   buscarPersonas(page: number, filtro?: string): void {
     this.textoFiltro = filtro ? filtro : '';
-    this.personaService.getPersonas(page - 1, this.textoFiltro).subscribe((res: any) => this.procesaResultados(res));
   }
 
   procesaResultados(res: any): void {
@@ -77,9 +76,6 @@ export class PersonaListComponent implements OnInit {
 
   irPagina(URL: string): void {
       if (URL) {
-        this.personaService.queryLink(URL).subscribe((res: any) => {
-            this.procesaResultados(res);
-        });
       }
   }
 

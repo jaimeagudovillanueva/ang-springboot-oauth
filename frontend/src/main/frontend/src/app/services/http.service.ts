@@ -20,17 +20,21 @@ export class HttpService extends Http {
     super(backend, defaultOptions); // llama a la base con las dependencias
   }
 
-  request(request: string | Request, options?: RequestOptionsArgs): Observable<Response> {
-
-    if (!options) {
-       options = { headers: new Headers() };
+  request(url: string|Request, options?: RequestOptionsArgs): Observable<Response> {
+    let token = this.sessionService.getAccessToken();
+    if (typeof url === 'string') {
+      if (!options) {
+        options = {headers: new Headers()};
+      }
+      options.headers.set('Authorization', `Bearer ${token}`);
+    } else {
+      // Si ya viene authorization no hay que sobreescribirlo, ya que el login usa basic authorization
+      if (!url.headers.get('Authorization')) {
+        url.headers.set('Authorization', `Bearer ${token}`);
+        url.headers.set('Content-Type', 'application/json');
+      }
     }
-    this.setHeaders(options);
-
-    let observableRequest = super
-      .request(request, options)
-      .catch(this.catchErrors());
-    return observableRequest;
+    return super.request(url, options).catch(this.catchErrors());
   }
 
   /**
@@ -57,7 +61,7 @@ export class HttpService extends Http {
             }
           }
           
-        }else{
+        } else {
         
             this._notificacionService.error('Permisos', "No disponible de los permisos necesarios para acceder y/o realizar esta acción");
             if(this.sessionService.getAccessToken()==null) {
@@ -77,6 +81,7 @@ export class HttpService extends Http {
    **/
   private setHeaders(objectToSetHeadersTo: Request | RequestOptionsArgs) {
     let headers = objectToSetHeadersTo.headers;
+    console.log(headers);
     headers.set('Content-Type', 'application/json');
     headers.set('Authorization', 'Bearer ' + this.sessionService.getAccessToken());
   }

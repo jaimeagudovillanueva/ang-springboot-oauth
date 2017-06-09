@@ -20,12 +20,12 @@ export class PersonaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.personaService
+    /*this.personaService
       .getPersona(this.id)
       .subscribe((res: any) => { 
           this.renderPersona(res);
           this.renderLink(res);
-     });
+     });*/
   }
 
   back(): void {
@@ -46,8 +46,8 @@ export class PersonaComponent implements OnInit {
   }
 
   realizarAccionLink(): void {
-     this.personaService.queryLink(this.link).subscribe((res: any) => {
+     /*this.personaService.queryLink(this.link).subscribe((res: any) => {
         this.renderPersona(res);
-     });
+     });*/
   }
 }

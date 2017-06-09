@@ -1,46 +1,20 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import {UtilsService} from '../../services/utils.service';
-
-import 'rxjs/Rx';
+import {Http} from '@angular/http'
+import {DefaultUrlSerializer, UrlSegment, UrlTree} from '@angular/router';
+import 'rxjs/add/operator/toPromise';
+import {ListadoService} from "../../services/listado.service";
+import {UtilsService} from "../../services/utils.service";
 
 @Injectable()
-export class PersonaService {
+export class PersonaService extends ListadoService {
 
-  private baseUrl: string = null;
+  public baseUrl = UtilsService.getConfigParam('rest_url_base') + '/personas';
 
-  constructor(public http: Http) {
-    this.baseUrl = UtilsService.getConfigParam("rest_url_base");
+  public getList(queryParams = null, filtroParams = null) {
+    return this.search(queryParams, filtroParams);
   }
 
-  query(URL: string, params?: Array<string>): Observable<any[]> {
-    let queryURL: string = `${this.baseUrl}${URL}`;
-    if (params) {
-      queryURL = `${queryURL}?${params.join('&')}`;
-    }
-
-    return this.http.request(queryURL).map((res: any) => res.json());
-  }
-
-  queryLink(URL: string): Observable<any[]> {
-    return this.http.request(URL).map((res: any) => res.json());
-  }
-
-  getPersonas(page: number, texto?: string): Observable<any[]> {
-    let parametros: Array<string> = [`page=${page}`];
-    if (texto) {
-     parametros.push(`filtro=${texto}`);
-    } 
-    
-    return this.query('/personas', parametros);
-  }
-
-  getPersona(id: number): Observable<any[]> {
-    return this.query(`/personas/${id}`);
+  public constructor(public  http: Http) {
+    super(http);
   }
 }
-
-export var PERSONAS_PROVIDERS: Array<any> = [
-  {provide: PersonaService, useClass: PersonaService}
-];

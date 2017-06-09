@@ -135,6 +135,20 @@ export class UtilsService {
       });
   }
 
+  /**
+   * Dada una fecha, la devuelve formateada ('dd/MM/yyyy')
+   * @param datePipe
+   * @param date
+   * @returns {any}
+   */
+  static getFomatedDate(datePipe, date)
+  {
+    let fecha_formateada = datePipe.transform(date, 'dd/MM/yyyy');
+
+    if (fecha_formateada) return fecha_formateada;
+    else return null;
+  }
+
   public constructor() {
   }
 }

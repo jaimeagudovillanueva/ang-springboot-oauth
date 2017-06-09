@@ -30,13 +30,15 @@ public class ArchivoVoter implements AccessDecisionVoter<Object> {
 		}
 
 		int result = ACCESS_ABSTAIN;
-		final Permiso permiso = ((Usuario) authentication.getPrincipal()).getPermisoSeleccionado();
-		for (final ConfigAttribute attribute : attributes) {
-			if (this.supports(attribute)) {
-				result = ACCESS_DENIED;
+		if (authentication.getPrincipal() != null && authentication.getPrincipal() instanceof Usuario) {
+			final Permiso permiso = ((Usuario) authentication.getPrincipal()).getPermisoSeleccionado();
+			for (final ConfigAttribute attribute : attributes) {
+				if (this.supports(attribute)) {
+					result = ACCESS_DENIED;
 
-				if (permiso != null && attribute.toString().contains(permiso.getAuthority())) {
-					return ACCESS_GRANTED;
+					if (permiso != null && attribute.toString().contains(permiso.getAuthority())) {
+						return ACCESS_GRANTED;
+					}
 				}
 			}
 		}

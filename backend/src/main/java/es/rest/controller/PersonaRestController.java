@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
@@ -20,11 +21,13 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.rest.controller.json.ListParams;
 import es.rest.entity.Persona;
 import es.rest.exception.NotFoundException;
 import es.rest.hateoas.PersonaResource;
@@ -55,20 +58,23 @@ public class PersonaRestController extends ResourceSupport {
 	@Autowired
 	private PagedResourcesAssembler<Persona> pagedPersonaAssembler;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public PagedResources<PersonaResource> obtenerPersonas(
-			@RequestParam(value = "page", defaultValue = "0") final int page,
-			@RequestParam(value = "filtro") final Optional<String> filtro) {
+	@RequestMapping(method = RequestMethod.POST)
+	public PagedResources<PersonaResource> obtenerPersonas(@RequestBody final ListParams params) {
 
-		final Pageable pageable = new PageRequest(page, 20, new Sort("primerApellido"));
+		// Hay que restar 1 al page porque las páginas de pageable empiezan en
+		// la 0 pero en las vistas lo normal es que sea la 1
+		final Pageable pageable = new PageRequest(params.getPage() - 1, params.getLimit(), Direction.ASC,
+				"primerApellido", "segundoApellido");
 
 		Page<Persona> paginas;
-		if (filtro.isPresent()) {
-			paginas = personaRepository.findAll(Specifications.where(cumpleFiltro(filtro.get().toUpperCase())),
-					pageable);
-		} else {
+		/*
+		 *
+		 * if (filtro.isPresent()) { paginas =
+		 * personaRepository.findAll(Specifications.where(cumpleFiltro(filtro.
+		 * get().toUpperCase())), pageable); } else {
+		 */
 			paginas = personaRepository.findAll(pageable);
-		}
+		// }
 		return pagedPersonaAssembler.toResource(paginas, personaAssembler);
 	}
 

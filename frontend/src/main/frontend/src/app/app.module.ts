@@ -10,10 +10,10 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { PlantillaComponent } from './base/plantilla.component';
 import { PrincipalComponent } from './principal/principal.component';
-import { PersonaListComponent } from './personas/components/persona.list.component';
+import { ListadoPersonasComponent } from './personas/components/listado/persona-listado.component';
 import { PersonaComponent } from './personas/components/persona.component';
+import { PersonaFiltroComponent } from './personas/components/filtro-listado/persona-filtro.component';
 
-import { PERSONAS_PROVIDERS } from './personas/services/persona.service';
 import { SessionService } from './services/session.service';
 import { sessionFactoryProvider } from './services/sessionFactoryProvider';
 import { SecurityService } from './services/security.service';
@@ -24,8 +24,9 @@ import { HttpService } from './services/http.service';
     AppComponent,
     PlantillaComponent,
     PrincipalComponent,
-    PersonaListComponent,
-    PersonaComponent
+    ListadoPersonasComponent,
+    PersonaComponent,
+    PersonaFiltroComponent
   ],
   imports: [
     BrowserModule,
@@ -38,8 +39,6 @@ import { HttpService } from './services/http.service';
   ],
   providers: [
     NotificationsService,
-    PERSONAS_PROVIDERS,
-
     SecurityService,
     {
       provide: SessionService,
@@ -49,6 +48,9 @@ import { HttpService } from './services/http.service';
       provide: Http,
       useClass: HttpService
     }
+  ],
+  entryComponents: [
+    PersonaFiltroComponent
   ],
   bootstrap: [AppComponent]
 })
