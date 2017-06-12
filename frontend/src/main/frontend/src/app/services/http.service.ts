@@ -7,7 +7,6 @@ import {Router} from "@angular/router";
 import {NotificationsService} from "angular2-notifications";
 import {SessionService} from "./session.service";
 
-
 @Injectable()
 export class HttpService extends Http {
   constructor(
@@ -42,16 +41,17 @@ export class HttpService extends Http {
    *
    **/
   private catchErrors() {
-    return (res: Response) => {
+    return (res: Response) => {     
 
       if (res.status === 401 || res.status === 403) {
 
         if(typeof res['_body'] !== 'undefined')
         {
-          if(res['_body'].indexOf("expired")!=-1)
+          if(res['_body'].indexOf("expired")!=-1 || res['_body'].indexOf("invalid_token")!=-1)
           {
             this._notificacionService.error('Sesión', "La sesión ha caducado");
-            this.router.navigateByUrl('/expired',{skipLocationChange:true})      
+            this.sessionService.clear();
+            this.router.navigateByUrl('/login',{skipLocationChange:true})      
           }
           else
           {
@@ -64,7 +64,8 @@ export class HttpService extends Http {
         } else {
         
             this._notificacionService.error('Permisos', "No disponible de los permisos necesarios para acceder y/o realizar esta acción");
-            if(this.sessionService.getAccessToken()==null) {
+
+            if (this.sessionService.getAccessToken()==null) {
               this.router.navigateByUrl('/login',{skipLocationChange:true})
             }
         }

@@ -67,12 +67,10 @@ export class LoginService {
 
   public logout(noMsg:boolean=false) {
 
-    /**
-     * Eliminar las cosas de ssession storage
-     */
-
     this.sessionService.clear();
-    if(noMsg==false)this._notificacionService.success("Logout", 'Sesión cerrada');
+    if(noMsg == false) {
+      this._notificacionService.success("Logout", 'Sesión cerrada');
+    }
     this.router.navigateByUrl('/login',{skipLocationChange:true});
   }
 }

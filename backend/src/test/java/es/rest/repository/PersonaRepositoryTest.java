@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -61,22 +60,10 @@ public class PersonaRepositoryTest {
 		assertEquals(personas.size(), 7941);
 	}
 
-	@Test
-	public void testFindAllFiltro() {
-		final List<Persona> personas = personaRepository.findAll(PersonaRepository.cumpleFiltro("GARC"));
-		assertEquals(personas.size(), 15372);
-	}
 
 	@Test
 	public void testFindAllIdMenor() {
 		final List<Persona> personas = personaRepository.findAll(PersonaRepository.idMenor(200L));
 		assertEquals(personas.size(), 197);
-	}
-
-	@Test
-	public void testFindAllDoubleSpecification() {
-		final List<Persona> personas = personaRepository.findAll(
-				Specifications.where(PersonaRepository.idMenor(200L)).and(PersonaRepository.cumpleFiltro("GARC")));
-		assertEquals(personas.size(), 12);
 	}
 }

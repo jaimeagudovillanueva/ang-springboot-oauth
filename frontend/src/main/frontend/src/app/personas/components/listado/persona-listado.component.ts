@@ -44,28 +44,28 @@ export class ListadoPersonasComponent extends ListadoComponent implements OnInit
 
     this.columnas = [
       {
-        campo_filtro: "datos.nombre",
+        campo_filtro: "nombre",
         campo: "nombre",
         titulo: "Nombre",
         tipo: "string",
         width: null
       },
       {
-        campo_filtro: "datos.primerApellido",
+        campo_filtro: "primerApellido",
         campo: "primerApellido",
         titulo: "Primer apellido",
         tipo: "string",
         width: null
       },
       {
-        campo_filtro: "datos.segundoApellido",
+        campo_filtro: "segundoApellido",
         campo: "segundoApellido",
         titulo: "Segundo Apellido",
         tipo: "string",
         width: null
       },
       {
-        campo_filtro: "datos.nif",
+        campo_filtro: "nif",
         campo: "nif",
         titulo: "NIF",
         tipo: "string",

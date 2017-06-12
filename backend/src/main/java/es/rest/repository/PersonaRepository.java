@@ -1,5 +1,6 @@
 package es.rest.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,7 +14,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.util.StringUtils;
 
+import es.rest.controller.json.FiltroPersona;
 import es.rest.entity.Persona;
 
 /**
@@ -40,14 +43,30 @@ public interface PersonaRepository
 	@Query("from Persona where nombre like %?1% or primerApellido like %?1% order by primerApellido ASC")
 	List<Persona> findLikeNombreApellido(String texto);
 
-	public static Specification<Persona> cumpleFiltro(final String texto) {
+	public static Specification<Persona> cumpleFiltro(final FiltroPersona filtro) {
 		return new Specification<Persona>() {
 			@Override
 			public Predicate toPredicate(final Root<Persona> root, final CriteriaQuery<?> query,
 					final CriteriaBuilder builder) {
-				return builder.or(builder.like(root.get("primerApellido"), '%' + texto + '%'),
-						builder.or(builder.like(root.get("segundoApellido"), '%' + texto + '%'),
-								(builder.like(root.get("nombre"), '%' + texto + '%'))));
+
+				final List<Predicate> predicates = new ArrayList<>();
+				if (!StringUtils.isEmpty(filtro.getNif())) {
+					predicates.add(builder.equal(builder.upper(root.get("nif")), filtro.getNif().toUpperCase()));
+				}
+				if (!StringUtils.isEmpty(filtro.getNombre())) {
+					predicates.add(builder.like(builder.upper(root.get("nombre")),
+							'%' + filtro.getNombre().toUpperCase() + '%'));
+				}
+				if (!StringUtils.isEmpty(filtro.getPrimerApellido())) {
+					predicates.add(builder.like(builder.upper(root.get("primerApellido")),
+							'%' + filtro.getPrimerApellido().toUpperCase() + '%'));
+				}
+				if (!StringUtils.isEmpty(filtro.getSegundoApellido())) {
+					predicates.add(builder.like(builder.upper(root.get("segundoApellido")),
+							'%' + filtro.getSegundoApellido().toUpperCase() + '%'));
+				}
+
+				return builder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
 		};
 	}

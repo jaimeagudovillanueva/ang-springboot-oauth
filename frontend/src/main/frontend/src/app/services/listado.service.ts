@@ -18,9 +18,9 @@ export abstract class ListadoService {
     return query_string;
   }
 
-  public search(queryParams, filtroParams) {
+  public search(filtroParams) {
 
-    return this.http.post(this.baseUrl, JSON.stringify(queryParams))
+    return this.http.post(this.baseUrl, JSON.stringify(filtroParams))
     .toPromise()
     .then(
         resultados => resultados.json()
@@ -44,7 +44,7 @@ export abstract class ListadoService {
       );
   }
 
-  public abstract getList(queryParams, filtroParams): Object;
+  public abstract getList(filtroParams): Object;
 
   public get(id: number)
   {

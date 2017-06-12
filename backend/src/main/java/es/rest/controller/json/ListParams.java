@@ -32,7 +32,7 @@ public class ListParams {
 	}
 
 	public Integer getPage() {
-		return page;
+		return page == null ? 1 : page;
 	}
 
 	public void setPage(final Integer page) {

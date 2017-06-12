@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.rest.controller.json.ListParams;
+import es.rest.controller.json.FiltroPersona;
 import es.rest.entity.Persona;
 import es.rest.exception.NotFoundException;
 import es.rest.hateoas.PersonaResource;
@@ -59,22 +59,16 @@ public class PersonaRestController extends ResourceSupport {
 	private PagedResourcesAssembler<Persona> pagedPersonaAssembler;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public PagedResources<PersonaResource> obtenerPersonas(@RequestBody final ListParams params) {
+	public PagedResources<PersonaResource> obtenerPersonas(@RequestBody final FiltroPersona filtro) {
 
 		// Hay que restar 1 al page porque las páginas de pageable empiezan en
 		// la 0 pero en las vistas lo normal es que sea la 1
-		final Pageable pageable = new PageRequest(params.getPage() - 1, params.getLimit(), Direction.ASC,
-				"primerApellido", "segundoApellido");
+		final Pageable pageable = new PageRequest(filtro.getPage() - 1, filtro.getLimit(),
+				Direction.fromStringOrNull(filtro.getOrderByType()),
+				filtro.getOrderBy(), "id");
 
-		Page<Persona> paginas;
-		/*
-		 *
-		 * if (filtro.isPresent()) { paginas =
-		 * personaRepository.findAll(Specifications.where(cumpleFiltro(filtro.
-		 * get().toUpperCase())), pageable); } else {
-		 */
-			paginas = personaRepository.findAll(pageable);
-		// }
+		final Page<Persona> paginas = personaRepository.findAll(Specifications.where(cumpleFiltro(filtro)), pageable);
+
 		return pagedPersonaAssembler.toResource(paginas, personaAssembler);
 	}
 
@@ -101,8 +95,8 @@ public class PersonaRestController extends ResourceSupport {
 	public Resources<PersonaResource> obtenerPersonasFiltroGenerico(
 			@RequestParam(value = "apellido") final String apellido, @RequestParam(value = "id") final Long id) {
 
-		return new Resources<>(personaRepository.findAll(Specifications.where(cumpleFiltro(apellido)).and(idMenor(id)))
-				.stream().filter(persona -> persona.getNombre().length() < 5).map(PersonaResource::new)
+		return new Resources<>(personaRepository.findAll(Specifications.where(idMenor(id))).stream()
+				.filter(persona -> persona.getNombre().length() < 5).map(PersonaResource::new)
 				.collect(Collectors.toList()));
 	}
 

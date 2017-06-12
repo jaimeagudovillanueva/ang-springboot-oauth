@@ -160,7 +160,6 @@ export class SessionService {
   }
 
   public setPermisoSeleccionado(response: any) {
-    console.log(JSON.stringify(response));
     localStorage.setItem('permiso', response);
     this.perfilSeleccionado = response;
   }
@@ -178,5 +177,6 @@ export class SessionService {
     this.authenticated = false;
     this.session_time_out = null;
     this.username = null;
+    this.perfilSeleccionado = null;
   }
 }

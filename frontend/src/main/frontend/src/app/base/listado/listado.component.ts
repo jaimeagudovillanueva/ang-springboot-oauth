@@ -57,21 +57,23 @@ export abstract class ListadoComponent implements OnInit {
       for (let entry in this.contenidoFormularioFiltro.controls) {
         this.filtros[entry] = this.contenidoFormularioFiltro.controls[entry].value;
       }
+      this.contenidoFormularioFiltro = null;
+    } else {
+      this.filtros['page'] = this.page;
     }
 
+     this.filtros['orderBy'] = this.columna_orden;
+     this.filtros['orderByType'] = this.columna_orden_tipo;
+     this.filtros['limit'] = this.limit;
+
+     console.log(this.filtros);
+
     this.listadoService.getList(
-      {
-        'orderBy': this.columna_orden,
-        'orderByType': this.columna_orden_tipo,
-        'limit': this.limit,
-        'page': this.page
-      },
       this.filtros
     ).then(
       resultados => {
 
         this.resultados = resultados.content;
-        console.log(this.resultados);
         this.page = resultados.page.number + 1;
         this.limit = resultados.page.size;
         this.pages = resultados.page.totalPages - 1;
@@ -157,9 +159,7 @@ export abstract class ListadoComponent implements OnInit {
     this.page++;
     if (this.page > this.pages) this.page = this.pages;
     this.listado();
-
   }
-
 
   public clickPagina(pagina) {
     this.page = pagina;

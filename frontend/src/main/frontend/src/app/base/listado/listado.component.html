@@ -10,8 +10,8 @@
                     <tr class="ui-widget-header">
                         <th class="tabla_listado_titulo_columna_th" *ngFor="let columna of columnas" (click)="clickTituloColumna($event)" id="{{ columna.campo_filtro }}">
                             {{ columna.titulo }}
-                            <img (click)="$event.stopPropagation()" *ngIf="columna.campo_filtro==columna_orden&&columna_orden_tipo=='ASC'" src="assets/cimages/up.png" />
-                            <img (click)="$event.stopPropagation()" *ngIf="columna.campo_filtro==columna_orden&&columna_orden_tipo=='DESC'" src="assets/cimages/down.png" />
+                            <span class="glyphicon glyphicon-chevron-up" (click)="$event.stopPropagation()" *ngIf="columna.campo_filtro==columna_orden&&columna_orden_tipo=='ASC'"></span> 
+                            <span class="glyphicon glyphicon-chevron-down" (click)="$event.stopPropagation()" *ngIf="columna.campo_filtro==columna_orden&&columna_orden_tipo=='DESC'"></span>
                         </th>
                         <th *ngIf="acciones && acciones.length > 0">Acciones</th>
                     </tr>

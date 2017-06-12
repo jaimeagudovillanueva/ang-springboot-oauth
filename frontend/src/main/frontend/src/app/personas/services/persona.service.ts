@@ -10,8 +10,8 @@ export class PersonaService extends ListadoService {
 
   public baseUrl = UtilsService.getConfigParam('rest_url_base') + '/personas';
 
-  public getList(queryParams = null, filtroParams = null) {
-    return this.search(queryParams, filtroParams);
+  public getList(filtroParams = null) {
+    return this.search(filtroParams);
   }
 
   public constructor(public  http: Http) {
