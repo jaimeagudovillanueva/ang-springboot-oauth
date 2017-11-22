@@ -1,5 +1,6 @@
 export const environment = {
 
+
   production: true,
-  baseHref: '/archivo/'
+  restUrl: 'https://archivodgfp.seap.minhap.es'
 };

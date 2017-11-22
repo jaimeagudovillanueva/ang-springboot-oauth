@@ -66,8 +66,6 @@ export abstract class ListadoComponent implements OnInit {
      this.filtros['orderByType'] = this.columna_orden_tipo;
      this.filtros['limit'] = this.limit;
 
-     console.log(this.filtros);
-
     this.listadoService.getList(
       this.filtros
     ).then(
