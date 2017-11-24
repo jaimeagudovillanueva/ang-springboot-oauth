@@ -11,7 +11,11 @@ const ROUTES: Routes = [
   { path: 'login', component: FormularioLoginComponent },
   { path: 'perfil', component: SeleccionPerfilComponent },
   { path: 'home', component: PrincipalComponent },
-  { path: 'personas', component: ListadoPersonasComponent },
-  { path: 'personas/:id', component: PersonaComponent} 
+  // shouldDetach distingue las vistas que se deben guardar cacheadas(por ejemplo listados con paginacion y filtros)
+  { path: 'personas', component: ListadoPersonasComponent, data: {shouldDetach: true} },
+  // shouldKeep distingue las vistas que mantienen las páginas cacheadas
+  { path: 'personas/:id', component: PersonaComponent, data: {shouldKeep: true}}
 ]
+// Los parametros shouldDetach y shouldKepp se podrían llamar como se quiera, no son palabras reservadas. 
+// Se hace referencia a ellos en app.reuse.strategy.ts 
 export const routing = RouterModule.forRoot(ROUTES);

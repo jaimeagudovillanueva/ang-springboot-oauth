@@ -1,12 +1,12 @@
-<div *ngIf="datos">
-    <h4>{{ datos.persona.nif}} </h4>
+<form [formGroup]="formulario" class="form-horizontal">
+    <h4><input formControlName="nif" id="nif" type="text" class="form-control" placeholder="Nif del usuario" [readOnly]="soloLectura"></h4>
     <div class="row">
-        <div class="col-md-4">{{ datos.persona.nombre }}</div>
-        <div class="col-md-4">{{ datos.persona.primerApellido }}</div>
-        <div class="col-md-4">{{ datos.persona.segundoApellido }}</div>
+        <div class="col-md-4">{{ datos?.nombre }}</div>
+        <div class="col-md-4">{{ datos?.primerApellido }}</div>
+        <div class="col-md-4">{{ datos?.segundoApellido }}</div>
     </div>
 
     <button *ngIf="link" (click)="realizarAccionLink()" class="btn btn-primary">Encriptar</button>
 
     <button (click)="back()" class="btn btn-primary">Volver</button>
-</div>
+</form>

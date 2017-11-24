@@ -16,7 +16,7 @@
                         <th *ngIf="acciones && acciones.length > 0">Acciones</th>
                     </tr>
 
-                    <tr *ngFor="let resultado of resultados">
+                    <tr *ngFor="let resultado of resultados" (click)="detalleElemento(resultado)">
                         <td *ngFor="let columna of columnas" [style.text-align]="(columna.align)" [style.word-break]="(columna.word_break)" [style.width.px]="(columna.width)">
                             <span [innerHTML]="smprint(resultado, columna.campo, columna.tipo)"></span>
                             <strong *ngIf="resultado.datos[columna.campo] && columna.units">{{columna.units}}</strong>

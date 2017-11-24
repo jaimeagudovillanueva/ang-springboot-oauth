@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions} from '@angular/http'
 import {DefaultUrlSerializer, UrlSegment, UrlTree} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -63,6 +64,10 @@ export abstract class ListadoService {
 
   public static ocurrioUnError(error) {
     return Promise.reject(error.message || error);
+  }
+  
+  public queryLink(URL: string): Observable<any[]> {
+    return this.http.request(URL).map((res: any) => res.json());
   }
 
 }

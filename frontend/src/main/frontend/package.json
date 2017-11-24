@@ -6,7 +6,7 @@
     "start": "ng serve --proxy-config proxy.conf.json",
     "start_intellij": "ng serve",
     "build": "ng build",
-    "backend_des": "ng build --base-href=/archivo/",
+    "backend_des": "ng build --base-href=/archivo/ --env=des",
     "backend_pro": "ng build --base-href=/archivo/ --prod --env=prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -32,7 +32,7 @@
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0-rc.4",
+    "@angular/cli": "^1.5.3",
     "@angular/compiler-cli": "^2.4.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",

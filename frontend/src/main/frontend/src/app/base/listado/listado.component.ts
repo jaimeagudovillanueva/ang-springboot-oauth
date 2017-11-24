@@ -121,6 +121,11 @@ export abstract class ListadoComponent implements OnInit {
   private getDescendantProp = (obj, path) => (
     path.split('.').reduce((acc, part) => acc && acc[part], obj)
   );
+  
+  public detalleElemento(objeto) {
+	  this.router.navigate(["/" + this.router.url + "/", objeto.datos[this.campo_unico]], 
+			  {queryParams: {soloLectura: 'true'}, skipLocationChange: true});
+  }
 
   //Formateamos la salida del campo
   public smprint(objeto, path, tipo=null) {

@@ -75,7 +75,7 @@ export class ListadoPersonasComponent extends ListadoComponent implements OnInit
 
     this.columna_orden = 'primerApellido';
     this.columna_orden_tipo = 'ASC';
-    this.campo_unico = 'nif';
+    this.campo_unico = 'id';
   }
 
 

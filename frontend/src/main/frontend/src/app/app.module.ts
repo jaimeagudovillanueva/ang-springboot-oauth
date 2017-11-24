@@ -3,9 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule,  ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule } from '@angular/http';
 import { LoginModule } from './login/login.module';
+import { RouteReuseStrategy } from '@angular/router';
 
 import { NotificationsService, SimpleNotificationsModule } from 'angular2-notifications';
 import { routing } from './app.routing';
+import { CustomReuseStrategy } from './app.reuse.strategy';
 
 import { AppComponent } from './app.component';
 import { PlantillaComponent } from './base/plantilla.component';
@@ -42,14 +44,9 @@ import { HttpService } from './services/http.service';
   providers: [
     NotificationsService,
     SecurityService,
-    {
-      provide: SessionService,
-      useFactory: sessionFactoryProvider
-    }, 
-    {
-      provide: Http,
-      useClass: HttpService
-    }
+    {provide: SessionService, useFactory: sessionFactoryProvider}, 
+    {provide: Http, useClass: HttpService},
+    {provide: RouteReuseStrategy, useClass: CustomReuseStrategy}
   ],
   entryComponents: [
     PersonaFiltroComponent

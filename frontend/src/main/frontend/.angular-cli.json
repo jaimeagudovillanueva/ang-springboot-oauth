@@ -25,6 +25,7 @@
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
+        "des": "environments/environment.des.ts",
         "prod": "environments/environment.prod.ts"
       }
     }
@@ -52,6 +53,9 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {}
+    "component": {},
+     "build": {
+      "showCircularDependencies": false
+    }
   }
 }
