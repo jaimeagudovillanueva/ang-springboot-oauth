@@ -27,16 +27,19 @@ export class ListadoPersonasComponent extends ListadoComponent implements OnInit
               ) {
 
     super(listadoService, resolver, securityService, router, urlSerializer);
+    this.label_nuevo = "Nueva persona";
     this.acciones = [
       {
         titulo: "Editar",
-        icono: "fa-edit",
+        icono: "fa-pencil",
+        claseBoton: "btn-default",
         path: "editar",
         methods: ['PUT']
       },
       {
         titulo: "Eliminar",
-        icono: "fa-trash-o",
+        icono: "fa-trash",
+        claseBoton: "btn-danger",
         path:  "eliminar",
         methods: ['DELETE']
       }
@@ -48,28 +51,28 @@ export class ListadoPersonasComponent extends ListadoComponent implements OnInit
         campo: "nombre",
         titulo: "Nombre",
         tipo: "string",
-        width: null
+        width: "25%"
       },
       {
         campo_filtro: "primerApellido",
         campo: "primerApellido",
         titulo: "Primer apellido",
         tipo: "string",
-        width: null
+        width: "25%"
       },
       {
         campo_filtro: "segundoApellido",
         campo: "segundoApellido",
         titulo: "Segundo Apellido",
         tipo: "string",
-        width: null
+        width: "25%"
       },
       {
         campo_filtro: "nif",
         campo: "nif",
         titulo: "NIF",
         tipo: "string",
-        width: 100
+        width: "15%"
       }
     ];
 

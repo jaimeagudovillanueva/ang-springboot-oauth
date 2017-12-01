@@ -1,25 +1,26 @@
-<div *ngIf="sessionService.authenticated && sessionService.perfilSeleccionado != null">
-    <nav class="navbar navbar-default" style="margin-bottom: 0px">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a [routerLink]="['home']">Inicio</a></li>
-                <li><a [routerLink]="['personas']">Personas</a></li>
+<div class="menu" *ngIf="sessionService.authenticated && sessionService.perfilSeleccionado != null">
+    <div class="container-fluid">
+		<div class="navbar-header">
+			<a [routerLink]="['home']">Archivo</a>
+		</div>
+		<div>
+			<ul class="nav navbar-nav">
+                <li [routerLinkActive]="['active']"><a [routerLink]="['personas']">Personas</a></li>
             </ul>        
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="javascript:void(0)" (click)="logout()">Cerrar sesión
-                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                    </a>
-                </li>
-            </ul>
-            </div>
-        </div>
-    </nav>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="javascript:void(0)" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span>Cerrar sesión</a></li>
+			</ul>
+		</div>
+	</div>
 </div>
-<div class="jumbotron">
-    <div class="container">
-        <router-outlet></router-outlet>
-        <simple-notifications [options]="notif_options"></simple-notifications>
-    </div>
+
+<div class="container">
+    <router-outlet></router-outlet>
+    <simple-notifications [options]="notif_options"></simple-notifications>
 </div>
+
+<footer class="footer">
+	<div class="container">
+		<span>ArchivoDGFP</span>
+	</div>
+</footer>

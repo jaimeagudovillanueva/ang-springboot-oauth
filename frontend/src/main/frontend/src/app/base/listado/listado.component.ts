@@ -37,6 +37,7 @@ export abstract class ListadoComponent implements OnInit {
 
   campo_unico: string;
 
+  label_nuevo: string;
   acciones: Array<any>;//Opciones que tendrá cada resultado o registro en la tabla
   columnas: Array<any>;//Elementos que contendrá cada columna de los resultados
   columna_orden: string;//Valor por el que se está ordenando la columna

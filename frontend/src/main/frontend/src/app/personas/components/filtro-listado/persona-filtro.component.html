@@ -1,67 +1,41 @@
-<div class="row">
-    <div class="col-xs-12">
-        <div class="text-right">
-            <a *ngIf="canNavigateTo(path+'/nueva',['GET'])" [routerLink]="[path+'/nueva']" skipLocationChange class="btn btn-app bg-olive">
-                <i class="fa fa-plus"></i> Nueva
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Filtro de Búsqueda {{nombre_filtro}}</h3>
-    <div class="box-tools pull-right">
-      <button (click)="expandirContraerContenido()" title="Ampliar" class="btn btn-box-tool" type="button">
-        <i class="fa fa-expand"></i>
-      </button>
-
-      <button title="Colapsar" data-toggle="tooltip" data-widget="collapse" class="btn btn-box-tool" type="button">
-        <i class="fa fa-minus"></i>
-      </button>
-    </div>
-  </div>
-
-    <form [formGroup]="formulario" (ngSubmit)="onEnviarFormulario()" class="form-horizontal">
-        <div class="box-body">
-            <div class="row" style="margin-right: 20px">
-
-                <div class="col-sm-6">
-
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Nombre</label>
-                        <div class="col-sm-8">
-                            <input formControlName="nombre" id="nombre" type="text" class="form-control" placeholder="Nombre">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Primer apellido</label>
-                        <div class="col-sm-8">
-                            <input formControlName="primerApellido" id="primerApellido" type="text" class="form-control" placeholder="Primer apellido">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">Segundo apellido</label>
-                        <div class="col-sm-8">
-                            <input formControlName="segundoApellido" id="segundoApellido" type="text" class="form-control" placeholder="Segundo apellido">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                      <label class="col-sm-4 control-label">NIF</label>
-                      <div class="col-sm-8">
-                        <input formControlName="nif" id="nif" type="text" class="form-control" placeholder="Documento de identidad">
-                      </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="box-footer">
-            <button [disabled]="formulario.invalid" class="btn btn-primary" type="submit">Buscar</button>
-            <button (click)="restablecer()" class="btn btn-default" type="button">Limpiar</button>
-        </div>
-    </form>
+<div class="col-md-12">
+	<form [formGroup]="formulario" (ngSubmit)="onEnviarFormulario()"class="well form-horizontal">
+		<h3>Filtro de búsqueda {{nombre_filtro}}</h3>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Nombre</label>
+			<div class="col-sm-8">
+				<input formControlName="nombre" id="nombre" type="text"
+					class="form-control" placeholder="Nombre">
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Primer apellido</label>
+			<div class="col-sm-8">
+				<input formControlName="primerApellido" id="primerApellido"
+					type="text" class="form-control" placeholder="Primer apellido">
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Segundo apellido</label>
+			<div class="col-sm-8">
+				<input formControlName="segundoApellido" id="segundoApellido"
+					type="text" class="form-control" placeholder="Segundo apellido">
+			</div>
+		</div>
+	
+		<div class="form-group">
+			<label class="col-sm-2 control-label">NIF</label>
+			<div class="col-sm-8">
+				<input formControlName="nif" id="nif" type="text"
+					class="form-control" placeholder="Documento de identidad">
+			</div>
+		</div>
+		
+		<div>
+			<button [disabled]="formulario.invalid" class="btn btn-primary" type="submit">Buscar</button>
+			<button (click)="restablecer()" class="btn btn-default" type="button">Limpiar</button>
+		</div>
+	</form>
 </div>

@@ -15,8 +15,8 @@ export class SessionService {
 
   public authenticated: boolean;
 
-  private perfilSeleccionado: Object = null;
-
+  private perfilSeleccionado: string = null;
+  
   private access_token: string;
 
   private refresh_token: string;
@@ -31,9 +31,9 @@ export class SessionService {
 
   private username: string;
 
-  private session_time_out: number=null;
+  private session_time_out: number = null;
 
-  public getPerfilSeleccionado(): Object
+  public getPerfilSeleccionado(): string
   {
     return this.perfilSeleccionado;
   } 
@@ -150,7 +150,7 @@ export class SessionService {
     this.scope = response.scope;
     this.roles = response.user.permisos;
     this.expires_in = response.expires_in;   
-    this.username = response.username;
+    this.username = username;
 
     this.login_time = new Date().getTime()/1000;
     let ahora = new Date().getTime()/1000;
@@ -160,8 +160,8 @@ export class SessionService {
   }
 
   public setPermisoSeleccionado(response: any) {
-    localStorage.setItem('permiso', response);
-    this.perfilSeleccionado = response;
+    localStorage.setItem('permiso', response.perfil.descripcion);
+    this.perfilSeleccionado = response.perfil.descripcion;
   }
 
   public clear() {

@@ -1,4 +1,260 @@
 /* You can add global styles to this file, and also import other style files */
 .tabla_listado_titulo_columna_th {
-    cursor: pointer
+	cursor: pointer
+}
+
+/* Menu */
+.menu {
+	background-color: #00547E;
+	border-bottom: 4px solid #04A3ED;
+	width: 100%;
+	height: auto;
+	padding: 0 10px;
+	margin: 0px;
+	z-index: 1;
+	opacity: 0.9;
+}
+
+.menu  .navbar-nav>.active>a {
+	background-color: #04A3ED;
+	color: white;
+	font-weight: bold;
+}
+
+.menu  .navbar-nav>li>a {
+	font-size: 13px;
+	color: white;
+	padding: 10px 35px;
+}
+
+.menu .navbar-nav > li > a:focus,
+.menu .navbar-nav > li > a:active,
+.menu  .navbar-nav>li>a:hover {
+	background-color: #04A3ED;
+}
+
+.navbar-header>a {
+	font-family: 'Ubuntu Condensed', sans-serif;
+	padding: 0px;
+	margin: 0px;
+	text-decoration: none;
+	color: white;
+	font-size: 25px;
+	padding: 5px 30px;
+}
+
+.navbar-header>a:hover {
+	text-decoration: none;
+	color: #04A3ED;
+}
+
+/* Lista */
+.panel-table .panel-body{
+  padding:0;
+}
+
+.panel-table .panel-body .table-bordered{
+  border-style: none;
+  margin:0;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr > th:first-of-type {
+    text-align:center;
+    width: 100px;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr > th:last-of-type,
+.panel-table .panel-body .table-bordered > tbody > tr > td:last-of-type {
+  border-right: 0px;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr > th:first-of-type,
+.panel-table .panel-body .table-bordered > tbody > tr > td:first-of-type {
+  border-left: 0px;
+}
+
+.panel-table .panel-body .table-bordered > tbody > tr:first-of-type > td{
+  border-bottom: 0px;
+}
+
+.panel-table .panel-body .table-bordered > thead > tr:first-of-type > th{
+  border-top: 0px;
+}
+
+.panel-table .panel-footer .pagination{
+  margin:0; 
+}
+
+/*
+used to vertically center elements, may need modification if you're not using default sizes.
+*/
+.panel-table .panel-footer .col{
+ line-height: 34px;
+ height: 34px;
+}
+
+.panel-table .panel-heading .col h3{
+ line-height: 30px;
+ height: 30px;
+}
+
+.panel-table .panel-body .table-bordered > tbody > tr > td{
+  line-height: 34px;
+}
+
+.well {
+	margin: 20px 0px !important;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 30px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 30px;
+  background-color: #00547E;
+  border-top: 4px solid #04A3ED;
+  opacity: 0.9;
+  color: white;
+}
+
+figure.snip0057 {
+  font-family: 'Raleway', Arial, sans-serif;
+  position: relative;
+  float: left;
+  overflow: hidden;
+  margin: 10px 1%;
+  min-width: 380px;
+  max-width: 480px;
+  width: 100%;
+  background: #ffffff;
+  color: #000000;
+}
+figure.snip0057 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease-in-out;
+  transition: all 0.35s ease-in-out;
+}
+figure.snip0057 .image {
+  width: 50%;
+  overflow: hidden;
+  z-index: 1;
+  -webkit-transform: skewX(-15deg);
+  transform: skewX(-15deg);
+}
+figure.snip0057 .image img {
+  position: relative;
+  display: block;
+  left: -15%;
+  z-index: 1;
+  -webkit-transform: skew(15deg);
+  transform: skew(15deg);
+}
+figure.snip0057:before {
+  position: absolute;
+  content: '';
+  height: 100%;
+  width: 45%;
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-transform: skewX(-17deg);
+  transform: skewX(-17deg);
+  -webkit-box-shadow: 15px 0px 25px rgba(0, 0, 0, 0.7);
+  box-shadow: 15px 0px 25px rgba(0, 0, 0, 0.7);
+}
+figure.snip0057 figcaption {
+  padding: 20px 30px 20px 20px;
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  width: 50%;
+}
+figure.snip0057 figcaption h2,
+figure.snip0057 figcaption p {
+  margin: 0;
+  text-align: right;
+  padding: 10px 0;
+  width: 100%;
+}
+figure.snip0057 figcaption h2 {
+  font-size: 1.3em;
+  font-weight: 300;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+figure.snip0057 figcaption h2 span {
+  font-weight: 800;
+}
+figure.snip0057 figcaption p {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+figure.snip0057 figcaption .icons {
+  width: 100%;
+  text-align: right;
+}
+figure.snip0057 figcaption .icons i {
+  font-size: 26px;
+  padding: 5px;
+  top: 50%;
+  color: #000000;
+  opacity: 0;
+}
+figure.snip0057 figcaption a {
+  opacity: 0.3;
+}
+figure.snip0057 figcaption a:hover {
+  opacity: 0.8;
+}
+figure.snip0057 .position {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: right;
+  padding: 15px 30px;
+  font-size: 0.9em;
+  opacity: 1;
+  font-style: italic;
+  color: #ffffff;
+  background: #000000;
+}
+figure.snip0057.blue .position {
+  background: #20638f;
+}
+figure.snip0057.red .position {
+  background: #962d22;
+}
+figure.snip0057.yellow .position {
+  background: #bf6516;
+}
+@-webkit-keyframes shadow {
+  0% {
+    left: 0px;
+  }
+  50% {
+    left: -5px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+@keyframes shadow {
+  0% {
+    left: 0px;
+  }
+  50% {
+    left: -5px;
+  }
+  100% {
+    left: 0px;
+  }
 }

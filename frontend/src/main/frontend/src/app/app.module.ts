@@ -12,9 +12,8 @@ import { CustomReuseStrategy } from './app.reuse.strategy';
 import { AppComponent } from './app.component';
 import { PlantillaComponent } from './base/plantilla.component';
 import { PrincipalComponent } from './principal/principal.component';
-import { ListadoPersonasComponent } from './personas/components/listado/persona-listado.component';
 import { PersonaComponent } from './personas/components/persona.component';
-import { PersonaListComponent } from './personas/components/persona.list.component';
+import { ListadoPersonasComponent } from './personas/components/listado/persona-listado.component';
 import { PersonaFiltroComponent } from './personas/components/filtro-listado/persona-filtro.component';
 
 import { SessionService } from './services/session.service';
@@ -29,7 +28,6 @@ import { HttpService } from './services/http.service';
     PrincipalComponent,
     ListadoPersonasComponent,
     PersonaComponent,
-    PersonaListComponent,
     PersonaFiltroComponent
   ],
   imports: [

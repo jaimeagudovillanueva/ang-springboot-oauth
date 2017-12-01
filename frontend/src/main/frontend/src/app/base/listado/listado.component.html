@@ -1,94 +1,122 @@
 <div class="alert alert-danger" *ngIf="mensaje_error!=null">
-    {{mensaje_error}}
+	{{mensaje_error}}
 </div>
 <div #dynamicTarget></div>
-<div class="box box-default" *ngIf="resultados && resultados.length > 0">
-    <div class="box-body no-padding">
-        <form>
-            <table class="table table-bordered table-striped table-hover dataTable">
-                <tbody>
-                    <tr class="ui-widget-header">
-                        <th class="tabla_listado_titulo_columna_th" *ngFor="let columna of columnas" (click)="clickTituloColumna($event)" id="{{ columna.campo_filtro }}">
-                            {{ columna.titulo }}
-                            <span class="glyphicon glyphicon-chevron-up" (click)="$event.stopPropagation()" *ngIf="columna.campo_filtro==columna_orden&&columna_orden_tipo=='ASC'"></span> 
-                            <span class="glyphicon glyphicon-chevron-down" (click)="$event.stopPropagation()" *ngIf="columna.campo_filtro==columna_orden&&columna_orden_tipo=='DESC'"></span>
-                        </th>
-                        <th *ngIf="acciones && acciones.length > 0">Acciones</th>
-                    </tr>
 
-                    <tr *ngFor="let resultado of resultados" (click)="detalleElemento(resultado)">
-                        <td *ngFor="let columna of columnas" [style.text-align]="(columna.align)" [style.word-break]="(columna.word_break)" [style.width.px]="(columna.width)">
-                            <span [innerHTML]="smprint(resultado, columna.campo, columna.tipo)"></span>
-                            <strong *ngIf="resultado.datos[columna.campo] && columna.units">{{columna.units}}</strong>
-                        </td>
+<div class="col-md-12">
+	<form>
+		<div class="panel panel-default panel-table" *ngIf="resultados && resultados.length > 0 ">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col col-xs-6">
+						<ul class="pagination pull-left" style="margin: 0px 5px">
+							<li>
+								<div class="btn-group">
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Total resultados {{ total }}
+									</button>
+								</div>
+							</li>
+							<li>
+								<div class="btn-group">
+									<button type="button" class="btn btn-default dropdown-toggle"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											{{ limit }} por página 
+										<span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li *ngFor="let pactualopcion of opciones_paginacion"
+											(click)="clickResultadosPorPagina(pactualopcion)"><a>{{pactualopcion}}</a></li>
+									</ul>
+								</div>
+							</li>
+                    	</ul>
+					</div>
+					<div class="col col-xs-6 text-right">
+						<button type="button" class="btn btn-primary btn-create">{{label_nuevo}}</button>
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<table class="table table-hover table-striped table-bordered table-list">
+					<thead>
+						<tr>
+							<th class="tabla_listado_titulo_columna_th" *ngFor="let columna of columnas"
+								(click)="clickTituloColumna($event)" id="{{ columna.campo_filtro }}">
+								{{ columna.titulo }} 
+								<span class="glyphicon glyphicon-chevron-up" (click)="$event.stopPropagation()"
+									*ngIf="columna.campo_filtro==columna_orden&&columna_orden_tipo=='ASC'">
+								</span>
+								<span class="glyphicon glyphicon-chevron-down" (click)="$event.stopPropagation()"
+									*ngIf="columna.campo_filtro==columna_orden&&columna_orden_tipo=='DESC'">
+								</span>
+							</th>
+							<th class="tabla_listado_titulo_columna_th text-center" *ngIf="acciones && acciones.length > 0">
+								<em class="fa fa-cog"></em>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let resultado of resultados" (click)="detalleElemento(resultado)">
+							<td *ngFor="let columna of columnas" [style.text-align]="(columna.align)"
+								[style.word-break]="(columna.word_break)" [style.width]="(columna.width)">
+								<span [innerHTML]="smprint(resultado, columna.campo, columna.tipo)"></span>
+								<strong *ngIf="resultado.datos[columna.campo] && columna.units">{{columna.units}}</strong>
+							</td>
 
-                        <td *ngIf="acciones && acciones.length > 0" class="tabla_listado_acciones_td">      
-                            <ng-container div *ngFor="let accion of acciones">
-                                <a [routerLink]="[accion.path, resultado.datos[campo_unico]]" skipLocationChange class="tabla_listado_enlace_accion_a">
-                                    <i *ngIf="accion.icono" class='fa fa-fw {{ accion.icono }}'></i>&nbsp;{{accion.titulo}}
-                                </a>
-                            </ng-container>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-
-        <div class="col-md-12">
-            <ul class="pagination pagination-no-border ">
-                <li><a href="javascript:void(0)">De {{ this.desde }} al {{ this.hasta }} de {{ total }} resultados</a></li>
-            </ul>
-
-            <ul class="pagination">
-                <li>
-                    <div class="btn-group" role="group" style="float:left; margin-right: 30px !important;">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{ limit }} por página
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li *ngFor="let pactualopcion of opciones_paginacion" (click)="clickResultadosPorPagina(pactualopcion)"><a>{{pactualopcion}}</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li [ngClass]="{'disabled': 1==pages || 1==page }">
-                    <a href="javascript:void(0)" class="page-link" aria-label="Última" 
-                        (click)="clickPrimera()"> 
-                        <span aria-hidden="true">Primera</span>
-                    </a>
-                </li>
-                <li [ngClass]="{'disabled': 1==pages || 1==page }">
-                    <a href="javascript:void(0)" class="page-link" aria-label="Última" 
-                        (click)="clickAnterior()"> 
-                        <span>«&nbsp;Anterior</span>
-                    </a>
-                </li>
-
-                <li *ngFor="let pactual of array_paginas" class="sortable" [ngClass]="{'active': pactual==page }">
-                     <a href="javascript:void(0)" class="page-link" aria-label="Última" 
-                        (click)="clickPagina(pactual)"> 
-                        <span>{{ pactual}}</span>
-                    </a>        
-                </li>
-
-                <li [ngClass]="{'disabled': 1==pages || pages==page }">
-                    <a href="javascript:void(0)" class="page-link" aria-label="Última" 
-                        (click)="clickSiguiente()"> 
-                        <span>Siguiente&nbsp;»</span>
-                    </a>
-                </li>
-                <li [ngClass]="{'disabled': 1==pages || pages==page}">
-                    <a href="javascript:void(0)" class="page-link" aria-label="Última" 
-                        (click)="clickUltima()"> 
-                        <span aria-hidden="true">Última</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+							<td *ngIf="acciones && acciones.length > 0" class="tabla_listado_acciones_td">
+								<ng-container div *ngFor="let accion of acciones"> 
+									<a [routerLink]="[accion.path, resultado.datos[campo_unico]]"
+										skipLocationChange class="btn {{accion.claseBoton}}" title="{{accion.titulo}}">
+										<i *ngIf="accion.icono" class='fa {{ accion.icono }}'></i>
+									</a> 
+								</ng-container>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="panel-footer">
+            	<div class="row">
+                  	<div class="col col-xs-12 text-center">
+                    	<ul class="pagination">		                       
+							<li [ngClass]="{'disabled': 1==pages || 1==page }">
+								<a href="javascript:void(0)" class="page-link" aria-label="Última"
+									(click)="clickPrimera()"> <span aria-hidden="true">Primera</span>
+								</a>
+							</li>
+							<li [ngClass]="{'disabled': 1==pages || 1==page }">
+								<a href="javascript:void(0)" class="page-link" aria-label="Última"
+									(click)="clickAnterior()"> <span>«&nbsp;Anterior</span>
+								</a>
+							</li>
+							<li *ngFor="let pactual of array_paginas" class="sortable"
+								[ngClass]="{'active': pactual==page }">
+								<a href="javascript:void(0)" class="page-link" aria-label="Última"
+									(click)="clickPagina(pactual)"> <span>{{ pactual}}</span>
+								</a>
+							</li>
+							<li [ngClass]="{'disabled': 1==pages || pages==page }">
+								<a href="javascript:void(0)" class="page-link" aria-label="Última"
+									(click)="clickSiguiente()"> <span>Siguiente&nbsp;»</span>
+								</a>
+							</li>
+							<li [ngClass]="{'disabled': 1==pages || pages==page}">
+								<a href="javascript:void(0)" class="page-link" aria-label="Última"
+									(click)="clickUltima()"> <span aria-hidden="true">Última</span>
+								</a>
+							</li>
+                    	</ul>
+                  	</div>
+                </div>
+            </div>
+		</div>
+	</form>
 </div>
+	
 <div class="box box-default" *ngIf="resultados && resultados.length == 0">
-    <div class="box-body no-padding center">
-        <h4 class="text-center">Sin resultados</h4>
-    </div>
+	<div class="box-body no-padding center">
+		<h4 class="text-center">Sin resultados</h4>
+	</div>
 </div>

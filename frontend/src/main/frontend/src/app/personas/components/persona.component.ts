@@ -15,8 +15,7 @@ export class PersonaComponent implements OnInit {
   id: number;
   datos: Object;
   link: string;
-  
-  @Input() soloLectura: boolean;
+  soloLectura: boolean;
 
   protected formulario: FormGroup = null;
   
@@ -25,7 +24,10 @@ export class PersonaComponent implements OnInit {
     route.params.subscribe(params => { this.id = params['id']; });
     
     this.formulario = new FormGroup({
-        nif: new FormControl('', [Validators.required])
+        nif: new FormControl('', [Validators.required]),
+        nombre: new FormControl('', [Validators.required]),
+        primerApellido: new FormControl('', [Validators.required]),
+        segundoApellido: new FormControl('', [Validators.required])
       });
   }
 
@@ -45,6 +47,9 @@ export class PersonaComponent implements OnInit {
 
   renderPersona(res: any): void {
 	 this.formulario.controls['nif'].setValue(res.datos.nif);
+	 this.formulario.controls['nombre'].setValue(res.datos.nombre);
+	 this.formulario.controls['primerApellido'].setValue(res.datos.primerApellido);
+	 this.formulario.controls['segundoApellido'].setValue(res.datos.segundoApellido);
 	 this.datos = res.datos;
   }
 
